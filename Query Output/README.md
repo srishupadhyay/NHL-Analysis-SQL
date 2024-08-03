@@ -7,6 +7,8 @@
 
 ### Q1. Write a query to calculate the total number of NHL player births for each year from 1991 to 2000.<br/>
 
+### Ans.<br/>
+
 | Birth_year | Player_count |
 |------------|---------------|
 | 1991       | 965           |
@@ -21,6 +23,7 @@
 | 2000       | 216           |
 
 ### Q2. Write a SQL query to calculate the top 3 teams with highest number of players who play forward.<br/>
+### Ans.<br/>
 
 | Player_count | Team_code |
 |--------------|-----------|
@@ -29,6 +32,7 @@
 | 1020         | CHI       |
 
 ### Q3. Write a SQL query to find players whose birth city starts with 'New '. Classify these players into 'Young' and 'Experienced' based on whether their birth year is after 1995.<br/>
+### Ans.<br/>
 
 
 | Player_Id | Player_Name      | Birth_City        | Date       | Player_Classification |
@@ -95,6 +99,7 @@
 | 8480891   | Michael Kesselring| New Hampton      | 2000-01-13 | Young                 |
 
 ### Q4. Classify and count players into 'Tall' and 'Short' category based on their height where a player is tall if they are 72 inches or more. Give the total count with the classification.<br/>
+### Ans.<br/>
 
 | Player_Count | Classification |
 |--------------|----------------|
@@ -103,6 +108,7 @@
 | 4634         | Short          |
 
 ### Q5. Write a query to rank the maximum average weight of the position types who are either from Toronto or Manitoba in all the years.<br/>
+### Ans.<br/>
 
 | Avg_Weight | Position   | Avg_Weight_Rank |
 |------------|------------|-----------------|
@@ -111,7 +117,8 @@
 | 83.5       | goalies    | 3               |
 
 ### Q6. Write queries for a running total on yearly basis and for every month since the start.<br/>
-### This gives us the monthly running total on yearly basis and resets every year.<br/>
+### Ans.<br/>
+### (A)This gives us the monthly running total on yearly basis and resets every year.<br/>
 
 | year | month | birth_count |
 |------|-------|-------------|
@@ -207,7 +214,7 @@
 | 2022 | 11    | 324139      |
 | 2022 | 12    | 351679      |
 
-### This gives us the running total on yearly and monthly basis since the start.<br/>
+### (B) This gives us the running total on yearly and monthly basis since the start.<br/>
 
 | year | month | birth_count |
 |------|-------|-------------|
@@ -285,10 +292,7 @@
 | 2022 | 12    | 11744714    |
 
 ### Q7. Write a query to calculate the Body Mass Index for each player with their Id, name, team, height, weight, and BMI as per their last match.<br/>
-
-
-Here is the data formatted as a markdown table:
-
+### Ans.<br/>
 
 | Player_Id | Player_Name         | Team                   | Height | Weight | BMI   |
 |-----------|---------------------|------------------------|--------|--------|-------|
@@ -320,6 +324,7 @@ Here is the data formatted as a markdown table:
 #### There are 9135 rows in total.<br/>
 
 ### Q8. What were the average height, weight, BMI of all the teams for the year 1947.<br/>
+### Ans.<br/>
 
 | Team_Name          | Avg_Team_Height | Avg_Team_Weight | Avg_Team_BMI |
 |--------------------|------------------|------------------|--------------|
@@ -331,8 +336,7 @@ Here is the data formatted as a markdown table:
 | Toronto Maple Leafs| 1.8              | 80.36            | 24.73        |
 
 ### Q9. Categorise and count the atheletes into underweight, healthy, overweight and obese according to their BMI.<br/>
-
-### Q9. Categorise and count the athletes into underweight, healthy, overweight, and obese according to their BMI.<br/>
+### Ans.<br/>
 
 | Count_Total | Category  |
 |-------------|-----------|
