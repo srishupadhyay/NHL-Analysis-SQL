@@ -19,21 +19,21 @@ The analysis uses three Excel sheets containing [Canadian Birth Numbers](DATA/ca
 ```
 SELECT 'canada_births_1991_2022$' AS Table_Name
        , 3 AS Total_Columns
-	   , count(*) AS Total_rows
+       , count(*) AS Total_rows
   FROM hockey..canada_births_1991_2022$
 
  UNION	
       
 SELECT 'nhl_rosters$' AS Table_Name
        , 19 AS Total_Columns
-	   , count(*) AS Total_rows	
+       , count(*) AS Total_rows	
   FROM hockey..nhl_rosters$
 
  UNION 
 
 SELECT 'nhl_teams$' AS Table_Name
        , 2 AS Total_Columns
-	   ,count(*) AS Total_rows	   
+       ,count(*) AS Total_rows	   
   FROM Hockey..nhl_teams$
 ```
 [TABLE VIEW](https://github.com/srishupadhyay/NHL-Analysis-SQL/blob/main/Query%20Output/README.md)
