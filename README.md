@@ -8,19 +8,35 @@
 
 The analysis uses three Excel sheets containing [Canadian Birth Numbers](DATA/canada_births_1991_2022.xlsm), [NHL Roster Details](DATA/nhl_rosters.xlsm), [NHL Team](DATA/nhl_teams.xlsm). They are also available under the 'Data' folder in the repository.
 
-## Tools
+## Tools & Help
 
-[SQL Server Management Studio (SSMS)](https://learn.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms?view=sql-server-ver16)
+[SQL Server Management Studio (SSMS)](https://learn.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms?view=sql-server-ver16)<br/>
+[Configuration ](https://learn.microsoft.com/en-us/sql/ssms/tutorials/ssms-configuration?view=sql-server-ver16)<br/>
+[SQL Wizard](https://learn.microsoft.com/en-us/sql/integration-services/import-export-data/start-the-sql-server-import-and-export-wizard?view=sql-server-ver16)<br/>
 
 ## Data
+ Overall table view that gives an estimate of the tables and the total number of attributes it contains
+```
+SELECT 'canada_births_1991_2022$' AS Table_Name
+       , 3 AS Total_Columns
+	   , count(*) AS Total_rows
+  FROM hockey..canada_births_1991_2022$
 
-| Table Name                | Total Columns | Total Rows |
-|---------------------------|---------------|------------|
-| canada_births_1991_2022$ | 3             | 384        |
-| nhl_rosters$             | 19            | 54,883     |
-| nhl_teams$               | 2             | 59         |
+ UNION	
+      
+SELECT 'nhl_rosters$' AS Table_Name
+       , 19 AS Total_Columns
+	   , count(*) AS Total_rows	
+  FROM hockey..nhl_rosters$
 
---------------------------------------------------------------------------------------------------
+ UNION 
+
+SELECT 'nhl_teams$' AS Table_Name
+       , 2 AS Total_Columns
+	   ,count(*) AS Total_rows	   
+  FROM Hockey..nhl_teams$
+```
+[TABLE VIEW](https://github.com/srishupadhyay/NHL-Analysis-SQL/blob/main/Query%20Output/README.md)
 
 Q1. Write a query to calculate the total number of NHL player births for each year from 1991 to 2000.
 ```
@@ -32,8 +48,9 @@ SELECT YEAR(birth_date) AS birth_year
 HAVING YEAR(birth_date) IS NOT NULL
  ORDER BY birth_year
 ```
-[Query Output](#q1.-Write-a-query-to-calculate-the-total-number-of-NHL-player-births-for-each-year-from-1991-to-2000)<br/>
-[Go to Q1](#q1-total-number-of-nhl-player-births-for-each-year-1991-2000)
+[ANSWER 1](https://github.com/srishupadhyay/NHL-Analysis-SQL/tree/main/Query%20Output#q1-write-a-query-to-calculate-the-total-number-of-nhl-player-births-for-each-year-from-1991-to-2000)
+
+
 
 Q2. Write a SQL query to calculate the top 3 teams with highest number of players who play forward. 
 ```
@@ -44,7 +61,9 @@ SELECT TOP 3
  GROUP BY team_code
  ORDER BY player_count DESC
 ```
-[Query Output]
+[ANSWER 2](https://github.com/srishupadhyay/NHL-Analysis-SQL/blob/main/Query%20Output/README.md#q2-write-a-sql-query-to-calculate-the-top-3-teams-with-highest-number-of-players-who-play-forward)
+
+
 Q3. Write a SQL query to find players whose birth city starts with 'New '. Classify these players into 'Young' and 'Experienced' based on whether their birth year is after 1995.
 ```
 SELECT distinct Player_Id
@@ -58,7 +77,15 @@ SELECT distinct Player_Id
   FROM dbo.nhl_rosters$
  WHERE birth_city LIKE 'New %'
 ```
-[Query Output]
+
+[ANSWER 3](https://github.com/srishupadhyay/NHL-Analysis-SQL/blob/main/Query%20Output/README.md#q2-write-a-sql-query-to-calculate-the-top-3-teams-with-highest-number-of-players-who-play-forward)
+
+
+
+
+
+
+
 Q4. Classify and count players into 'Tall' and 'Short' category based on their height where a player is tall if they are 72 inches or more.
 Give the total count with the classification.
 ```
@@ -80,7 +107,8 @@ SELECT COUNT(DISTINCT Player_ID) AS Player_Count
   FROM Players
  GROUP BY Classification
 ```
-[Query Output]
+[ANSWER 4](https://github.com/srishupadhyay/NHL-Analysis-SQL/blob/main/Query%20Output/README.md#q4-classify-and-count-players-into-tall-and-short-category-based-on-their-height-where-a-player-is-tall-if-they-are-72-inches-or-more-give-the-total-count-with-the-classification)
+
 Q5. Write a query to rank the maximum average weight of the position types who are either from Toronto or Manitoba in all the years.
 ```
 WITH 
@@ -96,7 +124,8 @@ SELECT *
        , RANK() OVER( ORDER BY Position) AS Avg_Weight_Rank
   FROM Avg_Player_Weight
 ```
-[Query Output]
+[ANSWER 5](https://github.com/srishupadhyay/NHL-Analysis-SQL/blob/main/Query%20Output/README.md#q5-write-a-query-to-rank-the-maximum-average-weight-of-the-position-types-who-are-either-from-toronto-or-manitoba-in-all-the-years)
+
 Q6. Write queries for a running total on yearly basis and for every month since the start.
 ```
 SELECT year
@@ -104,14 +133,19 @@ SELECT year
        , SUM(births) OVER ( PARTITION BY year ORDER BY month ) AS birth_count
   FROM dbo.canada_births_1991_2022$
 ```
-#### This gives us the monthly running total on yearly basis and resets every year.
+#### A.This gives us the monthly running total on yearly basis and resets every year.
+
+[PART A](https://github.com/srishupadhyay/NHL-Analysis-SQL/blob/main/Query%20Output/README.md#q6-write-queries-for-a-running-total-on-yearly-basis-and-for-every-month-since-the-start)
+
+
 ```
 SELECT year
        , month
        , SUM(births) OVER (ORDER BY year, month) AS birth_count
   FROM dbo.canada_births_1991_2022$
 ```
-[Query Output]
+[PART B](https://github.com/srishupadhyay/NHL-Analysis-SQL/blob/main/Query%20Output/README.md#b-this-gives-us-the-running-total-on-yearly-and-monthly-basis-since-the-start)
+
 #### This gives us the running total on yearly and monthly basis since the start.
 
 Q7. Write a query to calculate the Body Mass Index for each player with their Id, name, team, height, weight, and BMI as per their last match.
@@ -142,7 +176,8 @@ SELECT Player_Id
        AND height IS NOT NULL 
        AND weight IS NOT NULL
 ```
-[Query Output]
+[ANSWER 7](https://github.com/srishupadhyay/NHL-Analysis-SQL/blob/main/Query%20Output/README.md#q7-write-a-query-to-calculate-the-body-mass-index-for-each-player-with-their-id-name-team-height-weight-and-bmi-as-per-their-last-match)
+
 Q8. What were the average height, weight, BMI for all the teams for the year 1947.
 ```
 WITH 
@@ -169,7 +204,8 @@ SELECT Team_Name
  WHERE Season_End_Year = 1947
  GROUP BY Team_Name
 ```
-[Query Output]
+[ANSWER 8](https://github.com/srishupadhyay/NHL-Analysis-SQL/blob/main/Query%20Output/README.md#q8-what-were-the-average-height-weight-bmi-of-all-the-teams-for-the-year-1947)
+
 Q9. Categorise and count the atheletes into underweight, healthy, overweight and obese according to their BMI.
 ```
 WITH
@@ -206,4 +242,5 @@ SELECT count(Category) as Count_Total, Category
  WHERE Category IS NOT NULL
  GROUP BY Category
 ```
-[Query Output]
+[ANSWER 9](https://github.com/srishupadhyay/NHL-Analysis-SQL/blob/main/Query%20Output/README.md#q9-categorise-and-count-the-atheletes-into-underweight-healthy-overweight-and-obese-according-to-their-bmi)
+
