@@ -36,7 +36,9 @@ SELECT 'nhl_teams$' AS Table_Name
        ,count(*) AS Total_rows	   
   FROM Hockey..nhl_teams$
 ```
-[TABLE VIEW](https://github.com/srishupadhyay/NHL-Analysis-SQL/blob/main/Query%20Output/README.md)
+[TABLE VIEW](https://github.com/srishupadhyay/NHL-Analysis-SQL/blob/main/Query%20Output/README.md)<BR/>
+
+### To better understand the relationship, look at the model available [Data Model](Data_Model/Model.png)
 
 Q1. Write a query to calculate the total number of NHL player births for each year from 1991 to 2000.
 ```
@@ -121,7 +123,7 @@ SELECT ROUND(AVG(weight_in_kilograms),1) AS Avg_Weight
 )
 
 SELECT *
-       , RANK() OVER( ORDER BY Position) AS Avg_Weight_Rank
+       , RANK() OVER( ORDER BY Avg_Weight DESC) AS Avg_Weight_Rank
   FROM Avg_Player_Weight
 ```
 [ANSWER 5](https://github.com/srishupadhyay/NHL-Analysis-SQL/blob/main/Query%20Output/README.md#q5-write-a-query-to-rank-the-maximum-average-weight-of-the-position-types-who-are-either-from-toronto-or-manitoba-in-all-the-years)
